@@ -1,9 +1,6 @@
 package one.digitalinnovation.personaapi.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -28,8 +25,9 @@ public class Person {
     @Column(nullable = false, unique = true)
     private String cpf;
 
-    private LocalDate birthData;
+    private LocalDate birthDate;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<Phone> phones;
+
 }

@@ -1,4 +1,4 @@
-package one.digitalinnovation.personaapi.dto;
+package one.digitalinnovation.personaapi.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,7 +8,9 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -27,13 +29,14 @@ public class PersonDTO {
     @Size(min = 2, max = 100)
     private String lastName;
 
-    @NotEmpty
-    @CPF
+    @NotEmpty(message = "CPF NAO PODE SER NULO")
+    @CPF(message = "CPF Inválido")
     private String cpf;
 
-    private String birthData;
+    private String birthDate;
 
     @Valid
     @NotEmpty
     private List<PhoneDTO> phones;
+
 }
