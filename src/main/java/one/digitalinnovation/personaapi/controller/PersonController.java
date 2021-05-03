@@ -29,7 +29,8 @@ public class PersonController {
         return personService.createPerson(personDTO);
     }
 
-//    public List<PersonDTO> listAll(){
-//        return personService.listAll();
-//    }
+    @GetMapping
+    public List<PersonDTO> listAll(){
+        return personService.listAll();
+    }
 }
