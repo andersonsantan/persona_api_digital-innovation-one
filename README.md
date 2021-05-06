@@ -2,7 +2,7 @@
 
 Pequeno sistema para o gerenciamento de pessoas de uma empresa através de uma API REST, criada com o Spring Boot.
 
-Durante o projeto realizado no bootcamp Code Anywhere da Digital Inovation One, foram desenvolvidos e abordados os seguintes tópicos:
+Durante o projeto realizado no bootcamp Code Anywhere da Digital Innovation One, foram desenvolvidos e abordados os seguintes tópicos:
 
 * Setup inicial de projeto com o Spring Boot Initialzr
 * Criação de modelo de dados para o mapeamento de entidades em bancos de dados
