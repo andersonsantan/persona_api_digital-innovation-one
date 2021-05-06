@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,37 +24,44 @@ public class PersonService {
         this.personRepository = personRepository;
     }
 
-    public MessageResponseDTO createPerson(PersonDTO personDTO){
+    public MessageResponseDTO createPerson(PersonDTO personDTO){ // Create
         Person personToSave = personMapper.toModel(personDTO);
         Person savedPerson = personRepository.save(personToSave);
-        return MessageResponseDTO.builder()
-                .message("Created person whith ID " + savedPerson.getId())
-                .build();
+        return createdMessageResponse(savedPerson.getId(), "Created person whith ID ");
     }
 
-    public List<PersonDTO> listAll() {
+    public List<PersonDTO> listAll() { //Reade
         List<Person> allPeople = personRepository.findAll();
         return allPeople.stream()
                 .map(personMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
-    public PersonDTO findById(Long id) throws PersonNotFoundException {
-//        Optional<Person> optionalPerson = personRepository.findById(id);
-//        if (!optionalPerson.isPresent()){
-//            throw new PersonNotFoundException(id);
-//        }
+    public PersonDTO findById(Long id) throws PersonNotFoundException { //Reade
         Person person = personRepository.findById(id).orElseThrow(() -> new PersonNotFoundException(id));
         return personMapper.toDTO(person);
     }
 
 
-    public void delete(Long id) throws PersonNotFoundException{
+    public MessageResponseDTO updateById(Long id, PersonDTO personDTO) throws PersonNotFoundException { //Update
+        verifyIfExists(id);
+        Person personToUpdate = personMapper.toModel(personDTO);
+        Person updatePerson = personRepository.save(personToUpdate);
+        return createdMessageResponse(updatePerson.getId(), "Update person whith ID ");
+    }
+
+    public void delete(Long id) throws PersonNotFoundException{ // Delete
         verifyIfExists(id);
         personRepository.deleteById(id);
     }
 
     private Person verifyIfExists(Long id) throws PersonNotFoundException {
         return personRepository.findById(id).orElseThrow(() -> new PersonNotFoundException(id));
+    }
+
+    private MessageResponseDTO createdMessageResponse(Long id, String s) {
+        return MessageResponseDTO.builder()
+                .message(s + id)
+                .build();
     }
 }
